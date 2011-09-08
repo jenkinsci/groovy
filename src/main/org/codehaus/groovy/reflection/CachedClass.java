@@ -27,6 +27,7 @@ import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.*;
@@ -96,7 +97,7 @@ public class CachedClass {
                 final CachedMethod cachedMethod = new CachedMethod(CachedClass.this, declaredMethods[i]);
                 final String name = cachedMethod.getName();
 
-                if (name.indexOf('+') >= 0) {
+                if (declaredMethods[i].isBridge() || name.indexOf('+') >= 0) {
                     // Skip Synthetic methods inserted by JDK 1.5 compilers and later
                     continue;
                 } /*else if (Modifier.isAbstract(reflectionMethod.getModifiers())) {
